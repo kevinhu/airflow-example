@@ -1,7 +1,7 @@
 # airflow needs a home, ~/airflow is the default,
 # but you can lay foundation somewhere else if you prefer
 # (optional)
-export AIRFLOW_HOME=~/airflow
+export AIRFLOW_HOME=$(pwd)
 
 AIRFLOW_VERSION=2.1.4
 PYTHON_VERSION="$(python --version | cut -d " " -f 2 | cut -d "." -f 1-2)"
@@ -22,11 +22,15 @@ poetry run airflow users create \
     --email admin@admin.org
 
 # start the web server, default port is 8080
-poetry run airflow webserver --port 8080
+# poetry run airflow webserver --port 9000
 
 # start the scheduler
 # open a new terminal or else run webserver with ``-D`` option to run it as a daemon
-poetry run airflow scheduler
+# poetry run airflow scheduler
 
 # visit localhost:8080 in the browser and use the admin account you just
 # created to login. Enable the example_bash_operator dag in the home page
+
+# For Kafka-based (standard Kafka sink config can be passed via extras):
+poetry run airflow connections add  --conn-type 'datahub_kafka' 'datahub_kafka_default' --conn-host 'broker:9092' --conn-extra '{}'
+poetry run airflow connections add  --conn-type 'datahub_rest' 'datahub_rest_default' --conn-host 'http://localhost:8080'

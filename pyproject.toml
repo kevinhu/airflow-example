@@ -6,6 +6,7 @@ authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+acryl-datahub = {extras = ["airflow"], version = "^0.8.15"}
 
 [tool.poetry.dev-dependencies]
 
