@@ -9,6 +9,7 @@ def subdag_1(main_dag_name, subdag_name, start_date, schedule_interval):
         # note the repetition here
         schedule_interval=schedule_interval,
         start_date=start_date,
+        tags=["this_is_a_subdag"]
     )
 
     some_other_task = BashOperator(

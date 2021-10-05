@@ -84,16 +84,11 @@ with DAG(
         task_id="middle",
     )
 
-    # section_2 = SubDagOperator(
-    #     task_id="section-2",
-    #     subdag=load_subdag(
-    #         parent_dag_name=DAG_NAME,
-    #         child_dag_name="section-2",
-    #         start_date=dag.start_date,
-    #         schedule_interval=dag.schedule_interval,
-    #         args=default_args,
-    #     ),
-    # )
+    section_2 = SubDagOperator(
+        task_id="section-2",
+        subdag=subdag_1(DAG_NAME, "section-2", dag.start_date, dag.schedule_interval),
+        trigger_rule=TriggerRule.ALL_DONE
+    )
 
     end = BashOperator(
         bash_command="echo 'done!'",
@@ -101,4 +96,4 @@ with DAG(
         outlets={"datasets": [Dataset("snowflake", "mydb.schema.tableC")]},
     )
 
-    start >> section_1 >> some_other_task >> end
+    start >> section_1 >> some_other_task >> section_2 >> end
