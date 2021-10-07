@@ -3,7 +3,7 @@ from airflow.operators.bash_operator import BashOperator
 
 
 # No Dag at top level of module, has no effect on scheduler
-def subdag_1(main_dag_name, subdag_name, start_date, schedule_interval):
+def subdag(main_dag_name, subdag_name, start_date, schedule_interval):
     # you might like to make the name a parameter too
     dag = DAG(
         f"{main_dag_name}.{subdag_name}",

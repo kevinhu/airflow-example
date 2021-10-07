@@ -8,7 +8,7 @@ from airflow import DAG
 from airflow.operators.dummy import DummyOperator
 from airflow.operators.subdag import SubDagOperator
 from airflow.utils.trigger_rule import TriggerRule
-from subdag import subdag_1
+from subdag import subdag
 
 try:
     from airflow.operators.bash import BashOperator
@@ -50,7 +50,7 @@ with DAG(
 
     subdag_1 = SubDagOperator(
         task_id="subdag-1",
-        subdag=subdag_1(DAG_NAME, "subdag-1", dag.start_date, dag.schedule_interval),
+        subdag=subdag(DAG_NAME, "subdag-1", dag.start_date, dag.schedule_interval),
         trigger_rule=TriggerRule.ALL_DONE,
     )
 
@@ -61,7 +61,7 @@ with DAG(
 
     subdag_2 = SubDagOperator(
         task_id="subdag-2",
-        subdag=subdag_1(DAG_NAME, "subdag-2", dag.start_date, dag.schedule_interval),
+        subdag=subdag(DAG_NAME, "subdag-2", dag.start_date, dag.schedule_interval),
         trigger_rule=TriggerRule.ALL_DONE,
     )
 
