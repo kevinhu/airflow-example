@@ -1,3 +1,4 @@
+airflow-worker.pid
 airflow-webserver.pid
 airflow.db
 logs
