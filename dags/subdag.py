@@ -12,7 +12,16 @@ def subdag_1(main_dag_name, subdag_name, start_date, schedule_interval):
         tags=["this_is_a_subdag"]
     )
 
-    some_other_task = BashOperator(
-        bash_command="echo 'halfway there'", task_id="middle", dag=dag
+    some_other_task_1 = BashOperator(
+        bash_command="echo 'halfway there'", task_id="middle-1", dag=dag
     )
+
+    some_other_task_2 = BashOperator(
+        bash_command="echo 'halfway there'", task_id="middle-2", dag=dag
+    )
+
+    some_other_task_3 = BashOperator(
+        bash_command="echo 'halfway there'", task_id="middle-3", dag=dag
+    )
+
     return dag
